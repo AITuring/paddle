@@ -34,6 +34,7 @@ def sgd(params, lr, batch_size):
         param_data -= lr * param.grad / batch_size
         param.set_value(param_data)
 
+
 # 5.1.1 二维卷积互相关运算
 def corr2d(X, K):
     h, w = K.shape
