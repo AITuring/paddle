@@ -30,11 +30,16 @@ plt.imshow(train_data0, cmap=plt.cm.binary)
 print('train_data0 label is: ' + str(train_label_0)) # train_data0 label is: [7]
 
 # TODO 整体图片展示做不做，回家用win10做吧
-#  TODO 批量读取数据需要进一步调试
+
+
+
+
+# TODO 批量读取数据需要进一步调试
 
 
 # 小批量读取数据
 batch_size = 256
+
 # train_loader = paddle.io.DataLoader(mnist_train, places=paddle.CPUPlace(), batch_size=64, shuffle=True)
 # # 开启动态图
 # paddle.disable_static()
