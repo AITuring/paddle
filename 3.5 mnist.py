@@ -1,5 +1,8 @@
+# 3.5 MNIST
 # 导入相关包
 import paddle
+import sys
+import time
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
@@ -31,13 +34,52 @@ print('train_data0 label is: ' + str(train_label_0)) # train_data0 label is: [7]
 
 # TODO 整体图片展示做不做，回家用win10做吧
 
-# TODO 批量读取数据需要进一步调试
 
-# test
 # 小批量读取数据
 batch_size = 256
+if sys.platform.startswith('win'):
+    num_workers = 0 # 不用额外进程来加速读取数据
+else:
+    num_workers = 4
 
-# train_loader = paddle.io.DataLoader(mnist_train, places=paddle.CPUPlace(), batch_size=64, shuffle=True)
+train_loader = paddle.io.DataLoader(
+    mnist_train,
+    return_list= True,
+    places=paddle.CPUPlace(),
+    batch_size=batch_size,
+    shuffle=True,
+    num_workers = num_workers
+)
+test_loader = paddle.io.DataLoader(
+    mnist_test,
+    return_list= True,
+    places=paddle.CPUPlace(),
+    batch_size=batch_size,
+    shuffle=True,
+    num_workers = num_workers
+)
+for batch_id, data in enumerate(train_loader()):
+    x_data = data[0]
+    y_data = data[1]
+    # print(batch_id)
+    # print(x_data,y_data)
+# 查看读取数据时间
+start = time.time()
+for x,y in train_loader:
+    continue
+print('%.2f sec' %(time.time() - start))
+
+
+
+
+
+
+
+
+
+
+
+
 # # 开启动态图
 # paddle.disable_static()
 # # 模型搭建
