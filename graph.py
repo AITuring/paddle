@@ -31,12 +31,9 @@ print('train_data0 label is: ' + str(train_label_0)) # train_data0 label is: [7]
 
 # TODO 整体图片展示做不做，回家用win10做吧
 
-
-
-
 # TODO 批量读取数据需要进一步调试
 
-
+# test
 # 小批量读取数据
 batch_size = 256
 
