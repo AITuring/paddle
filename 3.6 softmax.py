@@ -17,4 +17,4 @@ num_outputs = 10
 b = paddle.zeros(num_outputs)
 
 # print('W',W)
-print('b',b)
+print('b', b)

@@ -10,27 +10,26 @@ import matplotlib.pyplot as plt
 # 版本检测
 print(paddle.__version__)
 
-
 # minist加载数据
 # mode来标识是训练数据还是测试数据集
 mnist_train = paddle.vision.datasets.MNIST(mode='train')
-mnist_test =  paddle.vision.datasets.MNIST(mode='test')
+mnist_test = paddle.vision.datasets.MNIST(mode='test')
 
 # 查看数据集大小
 # 训练集中和测试集中的每个类别的图像数分别为6,000和1,000。因为有10个类别，所以训练集和测试集的样本数分别为60,000和10,000
-print(len(mnist_train)) # 60000
-print(len(mnist_test)) # 10000
-print(type(mnist_train)) # <class 'paddle.vision.datasets.mnist.MNIST'>
+print(len(mnist_train))  # 60000
+print(len(mnist_test))  # 10000
+print(type(mnist_train))  # <class 'paddle.vision.datasets.mnist.MNIST'>
 
 # 取训练集数据查看，通过下标访问任意一个样本
-train_data0, train_label_0 = mnist_train[0][0],mnist_test[0][1]
-print(train_data0.shape,train_data0.dtype) #(1, 28, 28) float32
-print(train_label_0.shape,train_label_0.dtype) # (1,) int64
-train_data0 = train_data0.reshape([28,28])
+train_data0, train_label_0 = mnist_train[0][0], mnist_test[0][1]
+print(train_data0.shape, train_data0.dtype)  # (1, 28, 28) float32
+print(train_label_0.shape, train_label_0.dtype)  # (1,) int64
+train_data0 = train_data0.reshape([28, 28])
 # 绘图查看
-plt.figure(figsize=(2,2))
+plt.figure(figsize=(2, 2))
 plt.imshow(train_data0, cmap=plt.cm.binary)
-print('train_data0 label is: ' + str(train_label_0)) # train_data0 label is: [7]
+print('train_data0 label is: ' + str(train_label_0))  # train_data0 label is: [7]
 
 # TODO 整体图片展示做不做，回家用win10做吧
 
@@ -38,47 +37,37 @@ print('train_data0 label is: ' + str(train_label_0)) # train_data0 label is: [7]
 # 小批量读取数据
 batch_size = 256
 if sys.platform.startswith('win'):
-    num_workers = 0 # 不用额外进程来加速读取数据
+    num_workers = 0  # 不用额外进程来加速读取数据
 else:
     num_workers = 4
 
 train_loader = paddle.io.DataLoader(
     mnist_train,
-    return_list= True,
+    return_list=True,
     places=paddle.CPUPlace(),
     batch_size=batch_size,
     shuffle=True,
-    num_workers = num_workers
+    num_workers=num_workers
 )
 test_loader = paddle.io.DataLoader(
     mnist_test,
-    return_list= True,
+    return_list=True,
     places=paddle.CPUPlace(),
     batch_size=batch_size,
     shuffle=True,
-    num_workers = num_workers
+    num_workers=num_workers
 )
 for batch_id, data in enumerate(train_loader()):
     x_data = data[0]
     y_data = data[1]
-    # print(batch_id)
-    # print(x_data,y_data)
+    print(batch_id)
+    # print(data)
+    print(x_data,y_data)
 # 查看读取数据时间
 start = time.time()
-for x,y in train_loader:
+for x, y in train_loader:
     continue
-print('%.2f sec' %(time.time() - start))
-
-
-
-
-
-
-
-
-
-
-
+print('%.2f sec' % (time.time() - start))
 
 # # 开启动态图
 # paddle.disable_static()
